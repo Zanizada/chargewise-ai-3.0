@@ -1,0 +1,37 @@
+{
+  "padrao": {
+    "simulado": true,
+    "referencia": "Dados fictícios para aprendizado; não são informações da GoodWe.",
+    "usuario": "morador_demo",
+    "carregadores": [
+      {
+        "id": "vaga-12",
+        "estado": "disponivel"
+      },
+      {
+        "id": "vaga-8",
+        "estado": "em_uso"
+      },
+      {
+        "id": "vaga-15",
+        "estado": "em_uso"
+      }
+    ],
+    "consumo_mensal": {
+      "periodo": "2026-05",
+      "energia_kwh": 142,
+      "valor_brl": 184.6
+    },
+    "ultima_sessao": {
+      "id": "sessao-demo-18",
+      "carregador_id": "vaga-12",
+      "inicio": "2026-05-18T19:40:00-03:00",
+      "energia_kwh": 28,
+      "valor_brl": 36.4
+    }
+  },
+  "sem_dados": {
+    "simulado": true,
+    "referencia": "Cenário sem registros operacionais."
+  }
+}
