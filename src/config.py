@@ -21,6 +21,7 @@ class Config:
     max_tokens: int = 512
     timeout: float = 90
     max_turnos: int = 6
+    max_tokens_memoria: int = 2048
     prompt_versao: str = "v2"
     contar_tokens: bool = False
 
@@ -39,7 +40,7 @@ class Config:
         if not math.isfinite(self.top_p) or not 0 < self.top_p <= 1:
             raise ValueError("TOP_P deve estar entre 0 (exclusivo) e 1.")
         if (not math.isfinite(self.timeout) or self.timeout <= 0
-                or self.max_tokens < 1 or self.max_turnos < 1):
+                or self.max_tokens < 1 or self.max_turnos < 1 or self.max_tokens_memoria < 1):
             raise ValueError("Timeout, limite de saída e número de turnos devem ser positivos.")
         if not self.modelo.strip():
             raise ValueError("Informe OLLAMA_MODEL.")
@@ -57,6 +58,7 @@ def carregar_config(modo=None, prompt=None):
         max_tokens=int(os.getenv("MAX_TOKENS", "512")),
         timeout=float(os.getenv("TIMEOUT_SEGUNDOS", "90")),
         max_turnos=int(os.getenv("MAX_TURNOS", "6")),
+        max_tokens_memoria=int(os.getenv("MAX_TOKENS_MEMORIA", "2048")),
         prompt_versao=prompt or os.getenv("PROMPT_VERSAO", "v2"),
         contar_tokens=os.getenv("CONTAR_TOKENS", "false").lower() == "true",
     )

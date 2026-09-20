@@ -1,7 +1,7 @@
 """Primeiro contrato EV. Expanda com os campos necessários ao projeto."""
 import math
 from typing import Literal
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 class ConsultaRecarga(BaseModel):
@@ -16,6 +16,21 @@ class ConsultaRecarga(BaseModel):
     valor_brl: float | None = None
     fontes: list[str] = Field(default_factory=list)
     encaminhamento: str | None = None
+
+    @field_validator("encaminhamento")
+    @classmethod
+    def encaminhamento_nao_vazio(cls, valor):
+        if valor is not None:
+            valor = valor.strip()
+            if not valor:
+                raise ValueError("O encaminhamento não pode estar vazio.")
+        return valor
+
+    @model_validator(mode="after")
+    def exigir_destinatario(self):
+        if self.status == "encaminhar" and self.encaminhamento is None:
+            raise ValueError("Informe o destinatário quando o status for encaminhar.")
+        return self
 
     @field_validator("resposta")
     @classmethod
@@ -36,4 +51,4 @@ class ConsultaRecarga(BaseModel):
         return valor
 
     # TODO S3-01: acrescentar estado_carregador, potencia_kw e suas regras.
-    # TODO S3-01: validar coerência entre status, fontes e encaminhamento.
+    # TODO S3-01: validar fontes contra o contexto operacional.

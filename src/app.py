@@ -9,6 +9,7 @@ from src.config import RAIZ
 from src.chain.memoria import MemoriaSessoes
 from src.chain.tokens import contar_mensagens
 from src.guardrails.moderation import verificar_entrada
+from src.guardrails.output_validator import validar_saida
 from src.modelos import ClienteDemo, ClienteOllama, FalhaModelo, SaidaInvalida, mensagens_chat
 from src.schemas.consulta_recarga import ConsultaRecarga
 
@@ -46,6 +47,7 @@ class Chatbot:
         else:
             from src.chain.builder import ClienteLCEL
             self.cliente = ClienteLCEL(config)
+            self.memoria = self.cliente.memoria
 
     def responder(self, pergunta, session_id, contexto):
         inicio = perf_counter()
@@ -69,12 +71,14 @@ class Chatbot:
         try:
             if self.config.contar_tokens:
                 estimados = contar_mensagens(mensagens_chat(sistema, historico, pergunta))
-            geracao = self.cliente.gerar(sistema, historico, pergunta, contexto)
+            memoria_automatica = getattr(self.cliente, "memoria", None) is self.memoria
+            argumentos = {"session_id": session_id} if memoria_automatica else {}
+            geracao = self.cliente.gerar(sistema, historico, pergunta, contexto, **argumentos)
             resposta = (geracao.validada if geracao.validada is not None
                         else ConsultaRecarga.model_validate_json(geracao.texto))
-            # TODO S3-05: conferir números/fontes com contexto antes de salvar/exibir.
-            # Schema válido não garante que a informação seja verdadeira.
-            self.memoria.salvar(session_id, pergunta, resposta.model_dump_json())
+            validar_saida(resposta, contexto)
+            if not memoria_automatica:
+                self.memoria.salvar(session_id, pergunta, resposta.model_dump_json())
             return ResultadoTurno(True, resposta, None, self.config.modo, geracao.texto,
                                   perf_counter() - inicio, geracao.tokens_entrada,
                                   geracao.tokens_saida, estimados, hash_prompt)

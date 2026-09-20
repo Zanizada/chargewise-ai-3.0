@@ -1,6 +1,7 @@
 """Cadeia LCEL com saída validada antes da gravação automática do histórico."""
 from src.modelos import FalhaModelo, Geracao, SaidaInvalida
 from src.schemas.consulta_recarga import ConsultaRecarga
+from src.guardrails.output_validator import validar_saida, RespostaNaoConfiavel
 
 
 def construir_chain(llm):
@@ -19,7 +20,7 @@ class ClienteLCEL:
         try:
             from langchain_ollama import ChatOllama
             from src.chain.memoria_lcel import MemoriaLCEL
-            from langchain_core.runnables import RunnableLambda
+            from langchain_core.runnables import RunnableLambda, RunnablePassthrough
             from langchain_core.runnables.history import RunnableWithMessageHistory
             from langchain_core.messages import AIMessage
         except ImportError as exc:
@@ -43,11 +44,12 @@ class ClienteLCEL:
         )
         self.memoria = MemoriaLCEL(self.llm, config.max_tokens_memoria)
 
-        def preparar_saida(resultado):
+        def preparar_saida(dados):
+            resultado = validar_saida(dados["resultado"], dados["contexto"])
             return {"validada": resultado, "mensagem": AIMessage(content=resultado.model_dump_json())}
 
         self.chain = RunnableWithMessageHistory(
-            construir_chain(self.llm) | RunnableLambda(preparar_saida),
+            RunnablePassthrough.assign(resultado=construir_chain(self.llm)) | RunnableLambda(preparar_saida),
             self.memoria.historico, input_messages_key="pergunta",
             history_messages_key="historico", output_messages_key="mensagem",
         )
@@ -66,13 +68,15 @@ class ClienteLCEL:
         memoria.erro = None
         try:
             resultado = self.chain.invoke(
-                {"sistema": sistema, "pergunta": pergunta},
+                {"sistema": sistema, "pergunta": pergunta, "contexto": contexto},
                 config={"callbacks": [captura], "configurable": {"session_id": session_id}},
             )
             # Erros em listeners podem ser apenas registrados pelo LangChain.
             if memoria.erro is not None:
                 raise memoria.erro
             resultado = resultado["validada"]
+        except RespostaNaoConfiavel:
+            raise
         except OutputParserException as exc:
             raise SaidaInvalida(str(captura.mensagem.content) if captura.mensagem else "") from exc
         except Exception as exc:
