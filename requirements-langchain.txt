@@ -1,0 +1,5 @@
+-r requirements.txt
+langchain-core==1.6.3
+langchain-ollama==1.1.0
+langchain-classic==1.0.8
+tiktoken==0.14.0
