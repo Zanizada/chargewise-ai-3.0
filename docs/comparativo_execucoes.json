@@ -1,0 +1,93 @@
+{
+  "status": "comparacao_descritiva_parcial",
+  "avaliacao_qualitativa_completa": false,
+  "limites": "Comparação descritiva de duas execuções, com uma repetição por modelo. Os hashes dos casos e contextos coincidem. O hash do arquivo system_prompt_v3.md difere; portanto, a etiqueta v3 não identifica o mesmo conteúdo nos dois testes. Qwen foi executado localmente e GPT-OSS no Ollama Cloud. Não é possível atribuir diferenças exclusivamente ao modelo, à arquitetura ou ao prompt.",
+  "casos_identicos": true,
+  "contextos_identicos": true,
+  "execucoes": [
+    {
+      "arquivo": "../evals/runs/real_20260921T224455481243Z.json",
+      "sha256": "1d58417b9a858fb137fd8bd6e77ed34bb9d0fb704f8807053b484ddf1b221bd0",
+      "hash_casos": "ba299d27cf460a65f02eee8d85280282d6a427e0540dcd5b0681f1b791e52abb",
+      "hash_contextos": "3aac7380388fa85f8efa2a37678de5f16f497ca911caf767ab1bb2af94faa0c7",
+      "hash_prompt_v3": "205d1c09ca8c917948c06e9ed48169bc7955e5f5b2f00f9bd0e1e30017d05cd1",
+      "config": {
+        "modo": "lcel",
+        "base_url": "http://localhost:11434",
+        "modelo": "qwen3:8b",
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "max_tokens": 2048,
+        "num_predict": 2048,
+        "timeout": 120.0,
+        "max_retries": 1,
+        "prompt": "v3",
+        "memory_tokens": 1500,
+        "summary_tokens": 200,
+        "context_tokens": 8192,
+        "format_json": true
+      },
+      "metricas": {
+        "casos": 29,
+        "turnos_com_modelo": 21,
+        "tentativas_modelo": 29,
+        "falhas_execucao": 2,
+        "checagens_basicas_pct": 93.10344827586206,
+        "qualidade_media_0a2": null,
+        "qualidade_avaliada": 0,
+        "latencia_media_s": 7.230570158620641,
+        "latencia_modelo_media_s": 9.98503118095232,
+        "tokens_entrada_servico_media": 3001.095238095238,
+        "tokens_saida_servico_media": 632.2380952380952,
+        "cobertura_tokens_servico": 21,
+        "tokens_entrada_estimados_media": 2968.4761904761904,
+        "schema_tentativas_pct": 96.55172413793103,
+        "schema_primeira_tentativa_pct": 95.23809523809524,
+        "acuracia_campos_pct": 100.0,
+        "campos_avaliados": 12
+      }
+    },
+    {
+      "arquivo": "../evals/runs/gpt_oss_120b_20260921T230755Z.json",
+      "sha256": "ae1631c8ee28fa40f8f6a97c0591f96d1d41e6eecd9c5800e3a4af3cd838695d",
+      "hash_casos": "ba299d27cf460a65f02eee8d85280282d6a427e0540dcd5b0681f1b791e52abb",
+      "hash_contextos": "3aac7380388fa85f8efa2a37678de5f16f497ca911caf767ab1bb2af94faa0c7",
+      "hash_prompt_v3": "70366f4a1c07122dfcf5c6a27d2564d9f6694f78eb88145c4f9d4dbaf24c9e30",
+      "config": {
+        "modo": "lcel",
+        "base_url": "https://ollama.com",
+        "modelo": "gpt-oss:120b",
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "max_tokens": 2048,
+        "num_predict": 2048,
+        "timeout": 120.0,
+        "max_retries": 1,
+        "prompt": "v3",
+        "memory_tokens": 1500,
+        "summary_tokens": 200,
+        "context_tokens": 8192,
+        "format_json": true
+      },
+      "metricas": {
+        "casos": 29,
+        "turnos_com_modelo": 21,
+        "tentativas_modelo": 23,
+        "falhas_execucao": 1,
+        "checagens_basicas_pct": 89.65517241379311,
+        "qualidade_media_0a2": null,
+        "qualidade_avaliada": 0,
+        "latencia_media_s": 1.2437750482758616,
+        "latencia_modelo_media_s": 1.717536528571578,
+        "tokens_entrada_servico_media": 2090.5238095238096,
+        "tokens_saida_servico_media": 389.85714285714283,
+        "cobertura_tokens_servico": 21,
+        "tokens_entrada_estimados_media": 2146.4761904761904,
+        "schema_tentativas_pct": 100.0,
+        "schema_primeira_tentativa_pct": 100.0,
+        "acuracia_campos_pct": 75.0,
+        "campos_avaliados": 12
+      }
+    }
+  ]
+}
