@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "id": "goodwe-hca-referencia",
+      "path": "goodwe_hca_referencia.md",
+      "title": "Referência GoodWe HCA V1.3",
+      "nature": "síntese com fonte oficial",
+      "category": "manual",
+      "source": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_HCA%20Series_User%20Manual-EN.pdf",
+      "revision": "2026-10-14",
+      "sha256": "b44a8dcbcbbd2149782d2f76568e4f93a947db94a759238c3cd1bd996734821c"
+    },
+    {
+      "id": "regimento-arm",
+      "path": "regimento_simulado.md",
+      "title": "Regimento ARM simulado",
+      "nature": "simulação acadêmica",
+      "category": "regimento",
+      "source": "Autoria acadêmica ARM",
+      "revision": "2026-10-14",
+      "sha256": "01fe7b4990e3c1aaac0288b4cfb607c43743b695512625d57fd1c272a510fc3d"
+    },
+    {
+      "id": "faq-arm",
+      "path": "faq_simulada.md",
+      "title": "FAQ ARM simulada",
+      "nature": "simulação acadêmica",
+      "category": "faq",
+      "source": "Autoria acadêmica ARM",
+      "revision": "2026-10-14",
+      "sha256": "278e2a6a51f9018c59314005e3a9efe2281409e436f9361c04436810286713c8"
+    },
+    {
+      "id": "tarifas-arm",
+      "path": "tarifas_simuladas.md",
+      "title": "Tarifas ARM simuladas",
+      "nature": "simulação acadêmica",
+      "category": "tarifa",
+      "source": "Autoria acadêmica ARM",
+      "revision": "2026-10-14",
+      "sha256": "c72d12fa42fc17895754d112d6740c8a96d15bf4d9be196043027b4b6bff4bc9"
+    },
+    {
+      "id": "guia-academico",
+      "path": "guia_academico.pdf",
+      "title": "Guia acadêmico ChargeWise",
+      "nature": "simulação acadêmica",
+      "category": "guia",
+      "source": "Autoria acadêmica ARM",
+      "revision": "2026-10-14",
+      "sha256": "afdcab0e285213c307878d888c7aec43ddecfb353beb884a4768de81cf57caca"
+    },
+    {
+      "id": "goodwe-hca-original",
+      "path": "local/goodwe_hca_manual.pdf",
+      "title": "GoodWe HCA User Manual V1.3",
+      "nature": "manual oficial; cópia local não distribuída",
+      "category": "manual",
+      "source": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_HCA%20Series_User%20Manual-EN.pdf",
+      "revision": "2024-07-24",
+      "optional": true
+    }
+  ]
+}
