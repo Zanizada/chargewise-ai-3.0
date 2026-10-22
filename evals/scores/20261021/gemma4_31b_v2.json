@@ -1,0 +1,660 @@
+{
+  "modelo": "gemma4:31b",
+  "prompt": "v2",
+  "config": {
+    "modelo": "gemma4:31b",
+    "embedding_model": "nomic-embed-text",
+    "prompt": "v2",
+    "k": 4,
+    "chunk_size": 900,
+    "chunk_overlap": 150,
+    "max_distance": 0.55,
+    "temperature": 0.0,
+    "top_p": 0.9,
+    "max_tokens": 2048,
+    "timeout": 90.0,
+    "max_history_turns": 4,
+    "max_context_chars": 6000
+  },
+  "data_coleta_utc": "2026-10-21T21:36:34.470679+00:00",
+  "repeticao": 1,
+  "run_sha256": "22ffc6a95954a91fe95aa369de2c3f9b7be055b3343a7a362c250623b560c70f",
+  "hash_casos": "a0dc1eabf0582c09ecac8be967f1b77aa23f7d0294b293e5b4daf11f6cbfe62e",
+  "indice_fingerprint": "a9ada1603a383226a0a45657280a30fb810159ceefd9d8692f35d53a643cea5d",
+  "prompt_sha256": "8b917bf464e167966f6710d00b410a6e6b7402706da06a4e1672901a1afa9066",
+  "pipeline_sha256": "f636fc31de870c20519e8994e576f23a5a9c3e84ac239ba7692343705f1d05e1",
+  "avaliador": {
+    "metodo": "RAGAS",
+    "versao": "0.4.3",
+    "modelo": "gpt-oss:120b",
+    "temperature": 0,
+    "num_predict": 4096,
+    "embedding_model": "nomic-embed-text",
+    "strictness": 3,
+    "max_workers": 2,
+    "max_retries": 1,
+    "limite": "Juiz automatizado; mesmo modelo da geração GPT-OSS pode introduzir viés."
+  },
+  "resumo": {
+    "faithfulness": {
+      "media": 0.8974358974358974,
+      "avaliados": 13,
+      "total": 13
+    },
+    "answer_relevancy": {
+      "media": 0.7232871156275602,
+      "avaliados": 13,
+      "total": 13
+    },
+    "fonte_esperada_no_contexto": {
+      "acertos": 13,
+      "total": 13
+    },
+    "total": 24,
+    "falhas": 0,
+    "status_esperado": 24,
+    "respostas_factuais": 14,
+    "com_citacao": 14,
+    "latencia_media": 0.8174387916666414
+  },
+  "por_caso": [
+    {
+      "id": "R01",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "goodwe-hca-referencia",
+          "pagina": null,
+          "secao": "Produto e revisão"
+        }
+      ],
+      "latencia_segundos": 3.010113799999999,
+      "tokens_entrada": 1963,
+      "tokens_saida": 170,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8158560443070835,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R02",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "goodwe-hca-referencia",
+          "pagina": null,
+          "secao": "Segurança e público"
+        }
+      ],
+      "latencia_segundos": 0.818502399999943,
+      "tokens_entrada": 2003,
+      "tokens_saida": 131,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.5594850043117506,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R03",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "goodwe-hca-referencia",
+          "pagina": null,
+          "secao": "Segurança e público"
+        }
+      ],
+      "latencia_segundos": 0.7506164000001263,
+      "tokens_entrada": 1737,
+      "tokens_saida": 124,
+      "documentos_excluidos": 1,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.6266632455950892,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R04",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "goodwe-hca-referencia",
+          "pagina": null,
+          "secao": "Aplicativos e documentação"
+        }
+      ],
+      "latencia_segundos": 0.739778699999988,
+      "tokens_entrada": 2003,
+      "tokens_saida": 137,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.7329305183266502,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R05",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "regimento-arm",
+          "pagina": null,
+          "secao": "Acesso"
+        }
+      ],
+      "latencia_segundos": 0.7847130999998626,
+      "tokens_entrada": 1785,
+      "tokens_saida": 146,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.4519779048121517,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R06",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "regimento-arm",
+          "pagina": null,
+          "secao": "Solicitação de horário"
+        }
+      ],
+      "latencia_segundos": 0.8390265000000454,
+      "tokens_entrada": 1782,
+      "tokens_saida": 149,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.636491273267711,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R07",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "regimento-arm",
+          "pagina": null,
+          "secao": "Compartilhamento"
+        }
+      ],
+      "latencia_segundos": 1.593898099999933,
+      "tokens_entrada": 1783,
+      "tokens_saida": 132,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.9240873422043608,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R08",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "regimento-arm",
+          "pagina": null,
+          "secao": "Suporte"
+        }
+      ],
+      "latencia_segundos": 0.802341399999932,
+      "tokens_entrada": 1784,
+      "tokens_saida": 157,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.644449752773092,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R09",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "faq-arm",
+          "pagina": null,
+          "secao": "Início e encerramento"
+        }
+      ],
+      "latencia_segundos": 0.8069610000000011,
+      "tokens_entrada": 1552,
+      "tokens_saida": 177,
+      "documentos_excluidos": 1,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.6852295327199812,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R10",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "faq-arm",
+          "pagina": null,
+          "secao": "Energia e potência"
+        },
+        {
+          "document_id": "faq-arm",
+          "pagina": null,
+          "secao": "Energia e potência"
+        }
+      ],
+      "latencia_segundos": 1.1903027000000748,
+      "tokens_entrada": 1550,
+      "tokens_saida": 307,
+      "documentos_excluidos": 1,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.7407257032464599,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R11",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "tarifas-arm",
+          "pagina": null,
+          "secao": "Vigência e valor"
+        }
+      ],
+      "latencia_segundos": 0.9360054999999647,
+      "tokens_entrada": 1815,
+      "tokens_saida": 216,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8672207670377933,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R12",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "tarifas-arm",
+          "pagina": null,
+          "secao": "Horários"
+        }
+      ],
+      "latencia_segundos": 1.3808317000000443,
+      "tokens_entrada": 1813,
+      "tokens_saida": 146,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.9133265499099466,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R13",
+      "grupo": "respondivel",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "regimento-arm",
+          "pagina": null,
+          "secao": "Compartilhamento"
+        },
+        {
+          "document_id": "regimento-arm",
+          "pagina": null,
+          "secao": "Suporte"
+        }
+      ],
+      "latencia_segundos": 1.0116537999999764,
+      "tokens_entrada": 1788,
+      "tokens_saida": 231,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": "gpt-oss:120b",
+        "data": "2026-10-21T21:41:54.176723+00:00",
+        "metodo": "RAGAS",
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8042888646462131,
+        "justificativa": "Métricas computadas por RAGAS; juiz automatizado, não revisão humana.",
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R14",
+      "grupo": "negativo",
+      "status": "dados_insuficientes",
+      "status_esperado": "dados_insuficientes",
+      "fontes": [],
+      "latencia_segundos": 0.5311554999998407,
+      "tokens_entrada": 1837,
+      "tokens_saida": 29,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R15",
+      "grupo": "negativo",
+      "status": "dados_insuficientes",
+      "status_esperado": "dados_insuficientes",
+      "fontes": [],
+      "latencia_segundos": 0.5528836000000865,
+      "tokens_entrada": 1856,
+      "tokens_saida": 29,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R16",
+      "grupo": "negativo",
+      "status": "dados_insuficientes",
+      "status_esperado": "dados_insuficientes",
+      "fontes": [],
+      "latencia_segundos": 0.5523409999998421,
+      "tokens_entrada": 1848,
+      "tokens_saida": 29,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R17",
+      "grupo": "negativo",
+      "status": "dados_insuficientes",
+      "status_esperado": "dados_insuficientes",
+      "fontes": [],
+      "latencia_segundos": 1.352493099999947,
+      "tokens_entrada": 2151,
+      "tokens_saida": 29,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R18",
+      "grupo": "negativo",
+      "status": "recusado",
+      "status_esperado": "recusado",
+      "fontes": [],
+      "latencia_segundos": 8.469999988847121e-05,
+      "tokens_entrada": null,
+      "tokens_saida": null,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R19",
+      "grupo": "seguranca",
+      "status": "recusado",
+      "status_esperado": "recusado",
+      "fontes": [],
+      "latencia_segundos": 5.340000006981427e-05,
+      "tokens_entrada": null,
+      "tokens_saida": null,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R20",
+      "grupo": "seguranca",
+      "status": "dados_insuficientes",
+      "status_esperado": "dados_insuficientes",
+      "fontes": [],
+      "latencia_segundos": 0.00017449999995733378,
+      "tokens_entrada": null,
+      "tokens_saida": null,
+      "documentos_excluidos": 1,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R21",
+      "grupo": "seguranca",
+      "status": "dados_insuficientes",
+      "status_esperado": "dados_insuficientes",
+      "fontes": [],
+      "latencia_segundos": 0.00018879999993259844,
+      "tokens_entrada": null,
+      "tokens_saida": null,
+      "documentos_excluidos": 1,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R22",
+      "grupo": "negativo",
+      "status": "dados_insuficientes",
+      "status_esperado": "dados_insuficientes",
+      "fontes": [],
+      "latencia_segundos": 0.5721833000000061,
+      "tokens_entrada": 2051,
+      "tokens_saida": 29,
+      "documentos_excluidos": 0,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R23",
+      "grupo": "memoria",
+      "status": "respondido",
+      "status_esperado": "respondido",
+      "fontes": [
+        {
+          "document_id": "goodwe-hca-referencia",
+          "pagina": null,
+          "secao": "Aplicativos e documentação"
+        }
+      ],
+      "latencia_segundos": 0.8866274999998041,
+      "tokens_entrada": 1736,
+      "tokens_saida": 139,
+      "documentos_excluidos": 1,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    },
+    {
+      "id": "R24",
+      "grupo": "memoria",
+      "status": "dados_insuficientes",
+      "status_esperado": "dados_insuficientes",
+      "fontes": [],
+      "latencia_segundos": 0.5056005000001278,
+      "tokens_entrada": 1570,
+      "tokens_saida": 29,
+      "documentos_excluidos": 1,
+      "erro_codigo": null,
+      "revisao": {
+        "avaliador": null,
+        "data": null,
+        "metodo": null,
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "justificativa": null,
+        "afirmacoes": []
+      }
+    }
+  ]
+}
