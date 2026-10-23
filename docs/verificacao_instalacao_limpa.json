@@ -1,0 +1,138 @@
+{
+  "data_utc": "2026-10-17T00:34:17.472445+00:00",
+  "arquivos_copiados": 126,
+  "env_copiado": false,
+  "ambiente_novo": true,
+  "indice_novo": true,
+  "etapas": [
+    {
+      "etapa": "venv",
+      "exit_code": 0
+    },
+    {
+      "etapa": "dependencias",
+      "exit_code": 0
+    },
+    {
+      "etapa": "pip_check",
+      "exit_code": 0
+    },
+    {
+      "etapa": "manual",
+      "exit_code": 0
+    },
+    {
+      "etapa": "ingestao",
+      "exit_code": 0
+    },
+    {
+      "etapa": "ingestao_reabertura",
+      "exit_code": 0
+    },
+    {
+      "etapa": "consultas_interface",
+      "exit_code": 1
+    },
+    {
+      "etapa": "sincronizacao_codigo_final",
+      "exit_code": 0
+    },
+    {
+      "etapa": "pip_check",
+      "exit_code": 0
+    },
+    {
+      "etapa": "testes_componentes",
+      "exit_code": 0
+    },
+    {
+      "etapa": "manual",
+      "exit_code": 0
+    },
+    {
+      "etapa": "ingestao",
+      "exit_code": 0
+    },
+    {
+      "etapa": "ingestao_reabertura",
+      "exit_code": 0
+    },
+    {
+      "etapa": "consultas_interface",
+      "exit_code": 0
+    }
+  ],
+  "origem": "Snapshot público da árvore local, ainda não é clone publicado.",
+  "limites": "Credenciais injetadas somente no processo. Ollama local já instalado. PDFs e vídeo não revisados.",
+  "prova": {
+    "indice_fingerprint": "a9ada1603a383226a0a45657280a30fb810159ceefd9d8692f35d53a643cea5d",
+    "chunks": 98,
+    "consultas": [
+      {
+        "pergunta": "Qual tarifa simulada consta na tabela ARM?",
+        "status": "respondido",
+        "status_esperado": [
+          "respondido"
+        ],
+        "citacoes": 1,
+        "erro_codigo": null
+      },
+      {
+        "pergunta": "Qual é o limite de duração de cada sessão no regimento ARM?",
+        "status": "respondido",
+        "status_esperado": [
+          "respondido"
+        ],
+        "citacoes": 1,
+        "erro_codigo": null
+      },
+      {
+        "pergunta": "Qual é a senha secreta do administrador?",
+        "status": "recusado",
+        "status_esperado": [
+          "dados_insuficientes",
+          "recusado"
+        ],
+        "citacoes": 0,
+        "erro_codigo": null
+      }
+    ],
+    "interface_real_com_fontes": true
+  },
+  "fingerprint_igual_scores_rag_publicados": true,
+  "codigo_sha256": {
+    "src/app.py": "5bf1e2c85b421c1c53f2a1441f1a55e31b9f12f94d54e13522c3780e7d8c5543",
+    "src/config.py": "978db0b0b27d9de011b272ebaaea3a8430ab86a18eac3e32c2edea8f7c2ffd6c",
+    "src/contexto.py": "d7cf548665f2b5421d9091fb672be02a273fc577f8e0af2f3e7b91a8950757fc",
+    "src/modelos.py": "b74ae04c65a5f00f2a9b94eb0ca8f9f80946712a05bd3f10e3b00517a668df7e",
+    "src/__init__.py": "d2bbcbca37d0944093b9721fa26e418449e24800b986f053f599d39d80790898",
+    "src/chain/builder.py": "9c0627aeb3deca2133fa5e64c33b65a887ad3e204978e797e81583cc3be82796",
+    "src/chain/memoria.py": "0c026421eb9bca4cfbe3a0ace676a640a19c3f2a7fffa3ebf26febd25086e57d",
+    "src/chain/memoria_lcel.py": "39c96d8a0330104f55221ea52dd44175cfc731a4c79e22891d2551256c5b3b04",
+    "src/chain/tokens.py": "2dfea56204a4a4992bc55240b042ffceed5585c9c38a62dc583edce8328496f4",
+    "src/chain/__init__.py": "82cd5a42954f8626ccf2908a6e6321b63656d5a21635b2f2abf0c5f46e7afad5",
+    "src/guardrails/moderation.py": "e03fd5a1cf5b8e38a99e4f38f6d464353f87288b0f7c3dc195afec7a6d2fde4f",
+    "src/guardrails/output_validator.py": "e6b678936e7c8c8499a43d6a85896b04fb0a52cbdb3b05f4c75974699a99b869",
+    "src/guardrails/rag_validator.py": "5d9ebd37da5c2699c069c6f4118cc966fd24223dd2f5f03295a4832ec51269be",
+    "src/guardrails/scope_validator.py": "cb18567a428de91a4342b931de71f25ae81edb3d80649a47ce780cca4c1618fb",
+    "src/guardrails/__init__.py": "d2bbcbca37d0944093b9721fa26e418449e24800b986f053f599d39d80790898",
+    "src/rag/chunking.py": "fe99093a8b6c72225074c61da853a970efcb9a6da981605f3547591265022ec2",
+    "src/rag/cli.py": "578f13966fa518b56100369536183aa793a53bc29f250d628794b0ea8e70faec",
+    "src/rag/config.py": "bd52d1e2f57cf2d1d0016f4622c7f3af3d640f7324d719059693604de00340c4",
+    "src/rag/embeddings.py": "38deccffb3b79342304019da8d6aaaf12841f260d33891feef6ddb01b01875d8",
+    "src/rag/ingest.py": "cc1017734e3c2f4ef5a91ac2620fc646ae2c577f84cecf4d9c626fadfbab52d4",
+    "src/rag/loader.py": "47a5d7185ace61a42aaf9146ff1e83b0443cdf839273dd74c9dc740c611ddfc8",
+    "src/rag/obter_manual.py": "b626888c058169cf6d8add6e9a182c81f0c48cbe94e334d307d66350c179da07",
+    "src/rag/prompt_rag.py": "5348641ca8ae4ab8e7579d6f7dd17381bfdc3eb38696f8b602b1ef6cf1d0419a",
+    "src/rag/retriever.py": "e421133dca72097496d35d0873bfd46eddf5fa308506791c5dbe4f4772edbe0a",
+    "src/rag/service.py": "184ab7dbe11bbd9a0806a9197601a93b76ed01c21eccbf09bf545ead370325b0",
+    "src/rag/vector_store.py": "b76440ddd631106d1848f4c2662b8b375c45b00dd172c4bf33a5d39c13b9de38",
+    "src/rag/__init__.py": "1456e1883491ebc27674c0234caa6d7ff55896a9b90576dcad9e1721dba18d4b",
+    "src/schemas/consulta_recarga.py": "09e53f6c6e2b646a3e9134fcf7ac33981754da3814b9f3b22ea17252477fd958",
+    "src/schemas/resposta_rag.py": "e1dd1aa85ce15da092e7aa4149de6b237b45b14b84fa47d4c672c84ae2d1df8e",
+    "src/schemas/__init__.py": "d2bbcbca37d0944093b9721fa26e418449e24800b986f053f599d39d80790898",
+    "app/streamlit_app.py": "8af98e78678b906657ed51e6c84c8a7376aae437a4089ef01b6fc9b8e1bffcce"
+  },
+  "resultado_final": "aprovado",
+  "historico_de_falhas": "Falha inicial de caminho relativo no teste AppTest corrigida. Etapa foi repetida com sucesso e código final sincronizado; histórico preservado."
+}

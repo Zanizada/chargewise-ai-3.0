@@ -1,0 +1,208 @@
+{
+  "metodo": "RAGAS 0.4.3; relevância zero por protocolo em falhas/abstenções respondíveis",
+  "limites": "Uma repetição por condição; juiz GPT-OSS também é modelo avaliado. Não comprova significância estatística.",
+  "experimentos": [
+    {
+      "modelo": "gemma4:31b",
+      "prompt": "v1",
+      "faithfulness": {
+        "media": 0.9615384615384616,
+        "avaliados": 13,
+        "total": 13
+      },
+      "answer_relevancy": {
+        "media": 0.7815149299523335,
+        "avaliados": 13,
+        "total": 13
+      },
+      "fonte_esperada_no_contexto": {
+        "acertos": 13,
+        "total": 13
+      },
+      "total": 24,
+      "falhas": 0,
+      "status_esperado": 24,
+      "respostas_factuais": 14,
+      "com_citacao": 14,
+      "latencia_media": 0.8178144833333553
+    },
+    {
+      "modelo": "gemma4:31b",
+      "prompt": "v2",
+      "faithfulness": {
+        "media": 0.8974358974358974,
+        "avaliados": 13,
+        "total": 13
+      },
+      "answer_relevancy": {
+        "media": 0.7232871156275602,
+        "avaliados": 13,
+        "total": 13
+      },
+      "fonte_esperada_no_contexto": {
+        "acertos": 13,
+        "total": 13
+      },
+      "total": 24,
+      "falhas": 0,
+      "status_esperado": 24,
+      "respostas_factuais": 14,
+      "com_citacao": 14,
+      "latencia_media": 0.8174387916666414
+    },
+    {
+      "modelo": "gpt-oss:120b",
+      "prompt": "v1",
+      "faithfulness": {
+        "media": 1.0,
+        "avaliados": 13,
+        "total": 13
+      },
+      "answer_relevancy": {
+        "media": 0.7928264613905752,
+        "avaliados": 13,
+        "total": 13
+      },
+      "fonte_esperada_no_contexto": {
+        "acertos": 13,
+        "total": 13
+      },
+      "total": 24,
+      "falhas": 0,
+      "status_esperado": 24,
+      "respostas_factuais": 14,
+      "com_citacao": 14,
+      "latencia_media": 2.8831310916666553
+    },
+    {
+      "modelo": "gpt-oss:120b",
+      "prompt": "v2",
+      "faithfulness": {
+        "media": 1.0,
+        "avaliados": 13,
+        "total": 13
+      },
+      "answer_relevancy": {
+        "media": 0.7970334708747298,
+        "avaliados": 13,
+        "total": 13
+      },
+      "fonte_esperada_no_contexto": {
+        "acertos": 13,
+        "total": 13
+      },
+      "total": 24,
+      "falhas": 0,
+      "status_esperado": 24,
+      "respostas_factuais": 14,
+      "com_citacao": 14,
+      "latencia_media": 1.333514999999996
+    }
+  ],
+  "comparacoes": [
+    {
+      "modelo": "gemma4:31b",
+      "antes": {
+        "faithfulness": {
+          "media": 0.9615384615384616,
+          "avaliados": 13,
+          "total": 13
+        },
+        "answer_relevancy": {
+          "media": 0.7815149299523335,
+          "avaliados": 13,
+          "total": 13
+        },
+        "fonte_esperada_no_contexto": {
+          "acertos": 13,
+          "total": 13
+        },
+        "total": 24,
+        "falhas": 0,
+        "status_esperado": 24,
+        "respostas_factuais": 14,
+        "com_citacao": 14,
+        "latencia_media": 0.8178144833333553
+      },
+      "depois": {
+        "faithfulness": {
+          "media": 0.8974358974358974,
+          "avaliados": 13,
+          "total": 13
+        },
+        "answer_relevancy": {
+          "media": 0.7232871156275602,
+          "avaliados": 13,
+          "total": 13
+        },
+        "fonte_esperada_no_contexto": {
+          "acertos": 13,
+          "total": 13
+        },
+        "total": 24,
+        "falhas": 0,
+        "status_esperado": 24,
+        "respostas_factuais": 14,
+        "com_citacao": 14,
+        "latencia_media": 0.8174387916666414
+      },
+      "deltas": {
+        "faithfulness": -0.06410256410256421,
+        "answer_relevancy": -0.05822781432477331
+      },
+      "ganho_comprovado": false
+    },
+    {
+      "modelo": "gpt-oss:120b",
+      "antes": {
+        "faithfulness": {
+          "media": 1.0,
+          "avaliados": 13,
+          "total": 13
+        },
+        "answer_relevancy": {
+          "media": 0.7928264613905752,
+          "avaliados": 13,
+          "total": 13
+        },
+        "fonte_esperada_no_contexto": {
+          "acertos": 13,
+          "total": 13
+        },
+        "total": 24,
+        "falhas": 0,
+        "status_esperado": 24,
+        "respostas_factuais": 14,
+        "com_citacao": 14,
+        "latencia_media": 2.8831310916666553
+      },
+      "depois": {
+        "faithfulness": {
+          "media": 1.0,
+          "avaliados": 13,
+          "total": 13
+        },
+        "answer_relevancy": {
+          "media": 0.7970334708747298,
+          "avaliados": 13,
+          "total": 13
+        },
+        "fonte_esperada_no_contexto": {
+          "acertos": 13,
+          "total": 13
+        },
+        "total": 24,
+        "falhas": 0,
+        "status_esperado": 24,
+        "respostas_factuais": 14,
+        "com_citacao": 14,
+        "latencia_media": 1.333514999999996
+      },
+      "deltas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.004207009484154534
+      },
+      "ganho_comprovado": true
+    }
+  ]
+}

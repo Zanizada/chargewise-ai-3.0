@@ -1,0 +1,34 @@
+{
+  "data_utc": "2026-10-14T19:00:28.206076+00:00",
+  "chave_configurada": true,
+  "geracao": {
+    "http": 200,
+    "modelos": [
+      "mistral-large-4",
+      "nemotron-3-ultra",
+      "kimi-k2.7-code",
+      "glm-5.3-flash",
+      "minimax-m3",
+      "kimi-k3",
+      "nemotron-3-nano:30b",
+      "gpt-oss:20b",
+      "mistral-large-3:675b",
+      "glm-5.3",
+      "gpt-oss:120b",
+      "kimi-k2.6",
+      "deepseek-v4-pro:0813",
+      "deepseek-v4.1-flash",
+      "minimax-m2.7",
+      "glm-5.2",
+      "gemma4:31b",
+      "nemotron-3-super"
+    ]
+  },
+  "embedding": {
+    "erro": "endpoint inacessível ou resposta inválida"
+  },
+  "nomic_cloud": {
+    "http": 401,
+    "disponivel": false
+  }
+}

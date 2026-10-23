@@ -1,5 +1,13 @@
 # Relatório de modelos — ChargeWise AI
 
+> Revalidação RAG de 21/10/2026: `resultados_rag_20261021.md`. Quatro condições (GPT-OSS/Gemma, prompts v1/v2), com resultados antigos preservados. As configurações efetivas e hashes estão nos scores datados em `evals/scores/20261021/`.
+
+> Atualização de 16/10/2026: as pendências e comandos históricos da seção Sprint 03
+> abaixo descrevem os runs antigos. Nova comparação operacional com GPT-OSS,
+> manual v1 e LCEL v1/v2/v4, está em [comparativo_operacional.md](comparativo_operacional.md).
+> Resultados atuais em `evals/sprint3_results.json`; notas assistidas por IA e revisão
+> humana.
+
 Data: 21/09/2026. Evidências reais disponíveis; avaliação qualitativa humana e consolidação completa pendentes.
 
 ## Método e configuração
@@ -40,7 +48,7 @@ Comparação descritiva de duas execuções, com uma repetição por modelo. Os 
 
 As médias de tokens somam as tentativas do mesmo turno e usam os 21 turnos com contadores completos do serviço. Não são médias por tentativa. A latência dos turnos com modelo inclui processamento da aplicação e retries; não é uma medição isolada do tempo de inferência. Os oito turnos sem chamada também entram na taxa geral de checagens e na latência de todos os turnos.
 
-A acurácia dos campos tem denominador de 12 campos explicitamente previstos nos casos; não significa aprovação de todas as respostas. As falhas do Qwen não contradizem seus 100% nessa métrica, pois os casos em questão não possuem esses campos esperados. Schema válido verifica estrutura, não veracidade. A nota humana permanece ausente em todos os registros.
+A acurácia dos campos tem denominador de 12 campos explicitamente previstos nos casos; não significa aprovação de todas as respostas. As falhas do Qwen não contradizem seus 100% nessa métrica, pois os casos em questão não possuem esses campos esperados. Schema válido verifica estrutura, não veracidade.
 
 ## Falhas e interpretação
 
@@ -55,4 +63,44 @@ A acurácia dos campos tem denominador de 12 campos explicitamente previstos nos
 - [GPT-OSS: execução original](../evals/runs/gpt_oss_120b_20260921T230755Z.json)
 - [Manifesto de comparação](comparativo_execucoes.json)
 
-Os dois JSONs originais foram preservados byte a byte. O manifesto mantém as configurações e hashes de cada execução separadamente. Não foram fabricadas notas humanas nem resultados da baseline. O conjunto ainda não satisfaz o consolidador: faltam avaliação humana, baseline manual real e experimento controlado v2/v3.
+Os dois JSONs originais foram preservados byte a byte. O manifesto mantém as configurações e hashes de cada execução separadamente. Não foram fabricadas notas humanas nem resultados da baseline.
+---
+
+## Sprint 04 — comparação RAG independente
+
+Os dados acima pertencem à Sprint 03 e não demonstram qualidade do RAG implementado.
+A nova avaliação usa 24 perguntas fixas, corpus/índice e pipeline comuns, dois prompts
+RAG e uma repetição por condição. Coleta e scores são reais; consultar
+[resultados_rag.md](resultados_rag.md) e [scores por caso](../evals/scores/).
+
+| Parâmetro | GPT-OSS 120B | Gemma4 31B |
+|---|---|---|
+| Modelo do endpoint | gpt-oss:120b | gemma4:31b |
+| Geração | Ollama Cloud | Ollama Cloud |
+| temperature | 0 | 0 |
+| k / distância máxima de cosseno | 4 / 0,55 | 4 / 0,55 |
+| top_p | 0,9 | 0,9 |
+| max_tokens / num_predict | 2048 | 2048 |
+| Timeout / retry de geração | 90 s / nenhum | 90 s / nenhum |
+| Embeddings | Nomic local, 768 dimensões | Mesmo índice e modelo |
+| Chunking | 900 caracteres, overlap 150 | Igual |
+| Contexto / histórico | 6000 caracteres / 4 turnos | Igual |
+| Prompts / casos | RAG v1 e v2 / 24 | Igual |
+
+RAGAS 0.4.3 rodou em ambiente isolado devido a import incompatível com a stack nova.
+Juiz GPT-OSS 120B com temperature 0, num_predict 4096, Nomic local, strictness 3,
+max_workers 2 e max_retries 1. O juiz também é um dos modelos avaliados: registrar viés.
+Faithfulness usa suporte no contexto; relevância usa ResponseRelevancy. Recusa/falha
+em pergunta respondível recebe relevância fim a fim 0 e faithfulness N/A conforme
+protocolo, sem fingir que esse zero foi retornado pelo RAGAS.
+
+Gemma demonstrou saída cercada em Markdown: parser aceita somente cerca completa,
+sem reparar truncamento. A comparação final foi reexecutada com adaptador comum para
+os dois modelos. Um ConnectTimeout no Gemma v2 foi mantido e reduz cobertura/relevância;
+não houve reexecução seletiva para ocultar falha. Os primeiros runs problemáticos
+permanecem locais como diagnóstico e não definem superioridade geral do modelo.
+
+O catálogo não apresentou Gemma4 26B; a variante 31B disponível foi usada conforme
+autorização da equipe. Nomic cloud respondeu HTTP 401; geração cloud não comprova
+embeddings cloud.  Não se declara bônus de serviços distintos por usar dois modelos
+do mesmo Ollama. Comparações são descritivas; uma repetição não sustenta significância.

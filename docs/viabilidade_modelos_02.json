@@ -1,0 +1,43 @@
+{
+  "data_utc": "2026-10-14T19:02:41.564557+00:00",
+  "chave_configurada": true,
+  "geracao": {
+    "http": 200,
+    "modelos": [
+      "kimi-k3",
+      "gpt-oss:20b",
+      "mistral-large-3:675b",
+      "gemma4:31b",
+      "glm-5.3-flash",
+      "kimi-k2.6",
+      "kimi-k2.7-code",
+      "deepseek-v4.1-flash",
+      "nemotron-3-super",
+      "nemotron-3-ultra",
+      "deepseek-v4-pro:0813",
+      "mistral-large-4",
+      "glm-5.3",
+      "gpt-oss:120b",
+      "minimax-m2.7",
+      "minimax-m3",
+      "glm-5.2",
+      "nemotron-3-nano:30b"
+    ]
+  },
+  "embedding": {
+    "http": 200,
+    "modelos": [
+      "nomic-embed-text:latest"
+    ],
+    "embed_http": 200,
+    "vetores": 2,
+    "dimensoes": [
+      768,
+      768
+    ]
+  },
+  "nomic_cloud": {
+    "http": 401,
+    "disponivel": false
+  }
+}
