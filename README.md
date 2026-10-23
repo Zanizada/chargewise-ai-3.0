@@ -1,6 +1,6 @@
 # ChargeWise AI 3.0
 
-Entrega Sprint 04: [repositório](https://github.com/Zanizada/chargewise-ai-3.0), [relatório de evolução](docs/relatorio_evolucao_sprint04.pdf), [revalidação de 21/10](docs/resultados_rag_20261021.md) e [roteiro de demonstração](docs/ROTEIRO_VIDEO.md). Melhorias desta etapa: Miguel Piedade; contribuições anteriores preservadas no histórico.
+Entrega Sprint 04: [repositório](https://github.com/Zanizada/chargewise-ai-3.0), [relatório de evolução](docs/relatorio_evolucao_sprint04.pdf) e [revalidação de 21/10](docs/resultados_rag_20261021.md).  Melhorias desta etapa: Miguel Piedade; contribuições anteriores preservadas no histórico.
 
 Assistente conversacional em Python para consultas de recarga de veículos elétricos compartilhada em condomínios, desenvolvido no contexto do **EV Challenge — FIAP × GoodWe Brasil**, na disciplina Prompt and Artificial Intelligence.
 
@@ -361,9 +361,6 @@ e avaliar. Não instalar `requirements-evals.txt` no ambiente da aplicação.
 - [Scores por caso](evals/scores/)
 - [Relatório RAG](docs/relatorio_rag.md)
 - [Evolução Sprint 04 em PDF](docs/relatorio_evolucao_sprint04.pdf)
-- [Roteiro e pendências de entrega](docs/STATUS_SPRINT04.md)
-- [Plano original](PLANO_SPRINT04.md)
-- [Como atualizar o repositório](docs/GUIA_PUBLICACAO.md)
 - [Comparativo operacional e cinco testes com IA real](docs/comparativo_operacional.md)
 - [Verificação da instalação independente](docs/verificacao_instalacao_limpa.json)
 
