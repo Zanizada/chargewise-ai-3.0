@@ -1,10 +1,18 @@
 # ChargeWise AI 3.0
 
+Entrega Sprint 04: [repositório](https://github.com/Zanizada/chargewise-ai-3.0), [relatório de evolução](docs/relatorio_evolucao_sprint04.pdf), [revalidação de 21/10](docs/resultados_rag_20261021.md) e [roteiro de demonstração](docs/ROTEIRO_VIDEO.md). Melhorias desta etapa: Miguel Piedade; contribuições anteriores preservadas no histórico.
+
 Assistente conversacional em Python para consultas de recarga de veículos elétricos compartilhada em condomínios, desenvolvido no contexto do **EV Challenge — FIAP × GoodWe Brasil**, na disciplina Prompt and Artificial Intelligence.
 
 O projeto atende principalmente moradores e também a administração do condomínio. A interação acontece pelo terminal, com respostas em português e saída estruturada validada por Pydantic v2.
 
 ## O que o programa faz
+
+Planejamento e rastreabilidade das quatro etapas:
+
+- [Fluxograma do sistema](docs/fluxograma.md)
+- [Escopo, justificativa das tecnologias e limites das evidências](docs/ESCOPO_E_EVIDENCIAS.md)
+- [Cinco perguntas e respostas ideais do modelo de teste](docs/modelo_teste_operacional.md)
 
 - Consulta a disponibilidade dos carregadores no cenário fornecido.
 - Informa consumo mensal, valores registrados e dados da última recarga.
@@ -23,7 +31,7 @@ O projeto atende principalmente moradores e também a administração do condom�
 | `manual` | Requisição HTTP à API do Ollama | Limite de turnos | `requirements.txt` |
 | `lcel` | LangChain: `ChatPromptTemplate \| ChatOllama \| PydanticOutputParser` | Histórico por sessão limitado por tokens | `requirements-langchain.txt` |
 
-No modo LCEL, a cadeia é envolvida por `RunnableWithMessageHistory`. A memória utiliza `ConversationTokenBufferMemory` e descarta turnos antigos quando ultrapassa o orçamento. O histórico fica em memória RAM e termina ao encerrar o processo.
+No modo LCEL, a cadeia é envolvida por `RunnableWithMessageHistory`. A memória utiliza `ConversationTokenBufferMemory`, descarta turnos antigos e resume seus assuntos por regras, sem guardar valores antigos como fatos. Até 128 tokens do orçamento total são reservados ao resumo. O histórico fica em RAM e termina ao encerrar o processo.
 
 ## 1. Preparar o ambiente
 
@@ -107,7 +115,7 @@ CHARGEWISE_MODO=lcel
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=gpt-oss:120b
 OLLAMA_API_KEY=
-PROMPT_VERSAO=v2
+PROMPT_VERSAO=v4
 CONTAR_TOKENS=true
 ```
 
@@ -120,7 +128,7 @@ CHARGEWISE_MODO=lcel
 OLLAMA_BASE_URL=https://ollama.com
 OLLAMA_MODEL=gpt-oss:120b
 OLLAMA_API_KEY=SUBSTITUA_PELA_SUA_CHAVE
-PROMPT_VERSAO=v2
+PROMPT_VERSAO=v4
 CONTAR_TOKENS=true
 ```
 
@@ -133,19 +141,19 @@ Referências oficiais: [execução local](https://docs.ollama.com/quickstart), [
 Com as dependências e o endpoint configurados:
 
 ```bash
-python -X utf8 main.py --modo lcel --prompt v2
+python -X utf8 main.py --modo lcel --prompt v4
 ```
 
 Para uma consulta isolada:
 
 ```bash
-python -X utf8 main.py --modo lcel --prompt v2 --pergunta "Quanto consumi este mês?" --json
+python -X utf8 main.py --modo lcel --prompt v4 --pergunta "Quanto consumi este mês?" --json
 ```
 
 Para utilizar o cliente HTTP manual com o mesmo endpoint e modelo:
 
 ```bash
-python -X utf8 main.py --modo manual --prompt v2
+python -X utf8 main.py --modo manual --prompt v4
 ```
 
 A primeira utilização do contador `tiktoken` pode precisar de conexão para baixar o encoding. No modo LCEL, o contador também é usado para limitar o histórico, independentemente da opção de registrar a estimativa de tokens por turno.
@@ -194,7 +202,7 @@ Opções disponíveis:
 | Opção | Valores / finalidade |
 |---|---|
 | `--modo` | `demo`, `manual` ou `lcel` |
-| `--prompt` | `v1` ou `v2` |
+| `--prompt` | `v1`, `v2` ou `v4`; `v3` é histórico e não executável |
 | `--cenario` | `padrao` ou `sem_dados`; padrão: `padrao` |
 | `--pergunta` | Faz uma consulta e encerra |
 | `--json` | Mostra os campos estruturados da resposta |
@@ -214,7 +222,7 @@ Opções disponíveis:
 | `TIMEOUT_SEGUNDOS` | `90` | Tempo limite da requisição |
 | `MAX_TURNOS` | `6` | Quantidade de turnos mantidos em `demo` e `manual` |
 | `MAX_TOKENS_MEMORIA` | `2048` | Orçamento do histórico LCEL; não inclui system prompt nem pergunta atual |
-| `PROMPT_VERSAO` | `v2` | Prompt selecionado quando `main.py` não recebe `--prompt` |
+| `PROMPT_VERSAO` | `v4` | Prompt operacional selecionado; `RAG_PROMPT=v2` continua independente |
 | `CONTAR_TOKENS` | `false` | Registra estimativa de tokens de entrada quando definido como `true` |
 
 As opções `--modo` e `--prompt` prevalecem sobre o `.env`. Variáveis já definidas no ambiente do terminal também prevalecem sobre o `.env`.
@@ -251,17 +259,30 @@ Eles utilizam dados fixos e um servidor HTTP simulado; não exigem um modelo rea
 Para avaliar os 19 casos definidos em `evals/casos.json` no modo de demonstração:
 
 ```bash
-python -X utf8 -m evals.executar --modo demo --prompt v2
+python -X utf8 -m evals.executar --modo demo --prompt v4
 ```
 
 Para avaliar uma execução real, configure o modelo no `.env` e informe explicitamente o modo:
 
 ```bash
 python -X utf8 -m evals.executar --modo manual --prompt v1
-python -X utf8 -m evals.executar --modo lcel --prompt v2
+python -X utf8 -m evals.executar --modo lcel --prompt v4
 ```
 
-O avaliador usa `demo` e `v2` por padrão, mesmo que o `.env` selecione outros valores. Cada execução grava um JSON com nome e horário próprios dentro de `evals/`. Para escolher outro destino, acrescente `--arquivo CAMINHO.json`; o destino não pode existir, pois a escrita não sobrescreve resultados anteriores.
+A comparação operacional atual está em [comparativo_operacional.md](docs/comparativo_operacional.md),
+com referência manual executada agora, LCEL v1/v2/v4, 19 casos por condição e revisão
+qualitativa assistida por IA. O prompt operacional recomendado é **v4**; v1/v2 são
+referências de avaliação e têm falhas preservadas. Isso não altera os prompts RAG v1/v2.
+Resultados completos: `evals/sprint3_results.json`. Para reproduzir em diretório novo:
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 -B -m evals.executar_comparativo_sprint3 --saida evals/operacional_runs/NOVO_EXPERIMENTO
+```
+
+Reprodução não garante os mesmos números; o endpoint pode variar. Notas humanas
+continuam vazias: a avaliação IA publicada exige revisão da equipe.
+
+O avaliador usa `demo` e `v4` por padrão, mesmo que o `.env` selecione outros valores. Cada execução grava um JSON com nome e horário próprios dentro de `evals/`. Para escolher outro destino, acrescente `--arquivo CAMINHO.json`; o destino não pode existir, pois a escrita não sobrescreve resultados anteriores.
 
 Os arquivos registram casos, respostas, erros, latência, contadores disponíveis, parâmetros e checagens básicas. As notas e justificativas humanas são preenchidas posteriormente. O processo retorna código `0` se todas as checagens passarem e `1` caso contrário. Resultados `demo` medem regras do programa, não qualidade de um modelo de IA.
 
@@ -293,3 +314,59 @@ Os arquivos registram casos, respostas, erros, latência, contadores disponívei
 | Rafael Zani Gizzi | 569033 |
 
 Projeto acadêmico do grupo ARM — FIAP × GoodWe Brasil.
+
+## Sprint 04 — RAG e interface web
+
+A Sprint 04 preserva o terminal e as consultas operacionais simuladas. Acrescenta
+base documental inventariada, Nomic, Chroma persistente, prompts RAG versionados e
+interface Streamlit com citações visíveis. A geração principal é `gpt-oss:120b`
+no Ollama Cloud; comparação real também usa `gemma4:31b`.
+
+**Execução:** siga [app/README.md](app/README.md). Use Python 3.12 e instale
+`requirements-sprint04-lock.txt` em ambiente isolado. Configure `.env` local sem
+publicar a chave. Nomic é executado localmente, conforme orientação do professor
+informada por Miguel em 15/10/2026: embeddings locais são permitidos e recomendados.
+A geração permanece no Ollama Cloud. O HTTP 401 anterior é apenas evidência histórica.
+
+```powershell
+.\.venv\Scripts\python.exe -m src.rag.obter_manual
+.\.venv\Scripts\python.exe -m src.rag.ingest
+.\.venv\Scripts\python.exe -m streamlit run app/streamlit_app.py --server.address 127.0.0.1 --browser.gatherUsageStats false
+```
+
+O manual oficial é opcional e fica em `data/knowledge_base/local/`, ignorado pelo Git,
+pois sua reprodução pública exige autorização. Regimento/FAQ/tarifa ARM e o guia em
+PDF são **simulações acadêmicas**, não documentos oficiais GoodWe. Sem o manual
+local, os scores anteriores não são reproduzíveis no mesmo corpus: reingira e faça
+nova avaliação com outro fingerprint. Fontes públicas continuam consultáveis.
+
+Para perguntar pelo terminal RAG:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.rag.cli --pergunta "Qual tarifa simulada consta na tabela ARM?"
+```
+
+Para verificar componentes e interface sem um modelo real:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest evals.verificar_componentes evals.verificar_rag evals.verificar_interface -v
+```
+
+Os testes HTTP simulados usam servidor local. A avaliação de qualidade usa **RAGAS em
+`.venv-evals` separado** devido à incompatibilidade entre sua integração legada e a
+stack atual. Siga [docs/relatorio_rag.md](docs/relatorio_rag.md) para criar esse ambiente
+e avaliar. Não instalar `requirements-evals.txt` no ambiente da aplicação.
+
+- [Resultados reais e denominadores](docs/resultados_rag.md)
+- [Scores por caso](evals/scores/)
+- [Relatório RAG](docs/relatorio_rag.md)
+- [Evolução Sprint 04 em PDF](docs/relatorio_evolucao_sprint04.pdf)
+- [Roteiro e pendências de entrega](docs/STATUS_SPRINT04.md)
+- [Plano original](PLANO_SPRINT04.md)
+- [Como atualizar o repositório](docs/GUIA_PUBLICACAO.md)
+- [Comparativo operacional e cinco testes com IA real](docs/comparativo_operacional.md)
+- [Verificação da instalação independente](docs/verificacao_instalacao_limpa.json)
+
+Os runs brutos ficam locais em `evals/rag_runs/`, para não publicar trechos protegidos
+do manual. Scores/metadados redigidos são publicados em `evals/scores/`. Não há
+telemetria real, autenticação de moradores, reserva, pagamento ou comando em equipamento.
