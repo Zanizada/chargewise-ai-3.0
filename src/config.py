@@ -22,14 +22,14 @@ class Config:
     timeout: float = 90
     max_turnos: int = 6
     max_tokens_memoria: int = 2048
-    prompt_versao: str = "v2"
+    prompt_versao: str = "v4"
     contar_tokens: bool = False
 
     def __post_init__(self):
         if self.modo not in {"demo", "manual", "lcel"}:
             raise ValueError("Modo deve ser demo, manual ou lcel.")
-        if self.prompt_versao not in {"v1", "v2"}:
-            raise ValueError("Prompt deve ser v1 ou v2.")
+        if self.prompt_versao not in {"v1", "v2", "v4"}:
+            raise ValueError("Prompt deve ser v1, v2 ou v4; v3 é somente histórico.")
         url = urlsplit(self.base_url)
         if url.scheme not in {"http", "https"} or not url.hostname:
             raise ValueError("OLLAMA_BASE_URL deve ser um endereço HTTP(S).")
@@ -59,6 +59,6 @@ def carregar_config(modo=None, prompt=None):
         timeout=float(os.getenv("TIMEOUT_SEGUNDOS", "90")),
         max_turnos=int(os.getenv("MAX_TURNOS", "6")),
         max_tokens_memoria=int(os.getenv("MAX_TOKENS_MEMORIA", "2048")),
-        prompt_versao=prompt or os.getenv("PROMPT_VERSAO", "v2"),
+        prompt_versao=prompt or os.getenv("PROMPT_VERSAO", "v4"),
         contar_tokens=os.getenv("CONTAR_TOKENS", "false").lower() == "true",
     )

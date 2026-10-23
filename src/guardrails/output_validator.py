@@ -6,6 +6,7 @@ de produtos. Não autoriza ações sobre equipamentos, reservas ou pagamentos.
 from decimal import Decimal, InvalidOperation
 import re
 from src.guardrails.moderation import verificar_entrada
+from src.guardrails.scope_validator import normalizar
 
 
 class RespostaNaoConfiavel(RuntimeError):
@@ -15,6 +16,22 @@ class RespostaNaoConfiavel(RuntimeError):
 
 def validar_saida(resposta, contexto):
     if resposta.status == "respondido" and verificar_entrada(resposta.resposta) is not None:
+        raise RespostaNaoConfiavel()
+    texto = normalizar(resposta.resposta)
+    # Não há agenda, canais de contato ou execução de chamados neste cenário.
+    if re.search(r'[\w.+-]+@[\w.-]+\.[a-z]{2,}|\b(?:0800|4000)[\s\W]*\d', texto):
+        raise RespostaNaoConfiavel()
+    if re.search(r'\b(?:vou abrir|abrimos|agendei|reservei|encaminhando|chamado aberto|reserva confirmada)\b', texto):
+        raise RespostaNaoConfiavel()
+    if resposta.intencao == 'suporte':
+        permitidos = {'administracao', 'suporte tecnico', 'administracao ou suporte tecnico'}
+        if (resposta.status != 'encaminhar'
+                or normalizar(resposta.encaminhamento or '') not in permitidos
+                or re.search(r'\b(?:aplicativo|portal|telefone|whatsapp|reinici\w*|reset|deslig\w*)\b', texto)):
+            raise RespostaNaoConfiavel()
+    if resposta.intencao == 'agendamento' and (resposta.status != 'dados_insuficientes' or resposta.fontes):
+        raise RespostaNaoConfiavel()
+    if resposta.intencao == 'fora_escopo' and resposta.status != 'recusado':
         raise RespostaNaoConfiavel()
     fontes_permitidas = {"carregadores", "consumo_mensal", "ultima_sessao"}
     fontes = resposta.fontes

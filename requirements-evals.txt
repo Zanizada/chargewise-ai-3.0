@@ -1,0 +1,2 @@
+# Compatibilidade: instalar APENAS em .venv-evals.
+-r requirements-ragas-isolado.txt

@@ -1,29 +1,51 @@
-"""Histórico LCEL com orçamento de tokens e descarte de turnos antigos.
-
-Não gera resumo: ao exceder o orçamento, descarta os turnos mais antigos.
-Isso evita introduzir fatos sintetizados como se fossem dados operacionais.
-"""
+"""Histórico limitado e resumo determinístico de assuntos, sem fatos operacionais."""
 from copy import deepcopy
 
 from langchain_classic.memory import ConversationTokenBufferMemory
 from langchain_core.chat_history import BaseChatMessageHistory
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, SystemMessage
+from src.guardrails.scope_validator import identificar_intencao
 
 
 class HistoricoLimitado(BaseChatMessageHistory):
     def __init__(self, llm, limite):
+        self.llm, self.limite = llm, limite
+        self.reserva_resumo = min(128, limite // 4)
+        self.assuntos = []
         self.buffer = ConversationTokenBufferMemory(
-            llm=llm, max_token_limit=limite, return_messages=True,
+            llm=llm, max_token_limit=limite - self.reserva_resumo, return_messages=True,
             input_key="pergunta", output_key="resposta",
         )
         self.erro = None
 
     @property
     def messages(self):
-        return self.buffer.chat_memory.messages
+        resumo = self.mensagem_resumo()
+        return ([resumo] if resumo else []) + self.buffer.chat_memory.messages
+
+    def mensagem_resumo(self):
+        if not self.assuntos:
+            return None
+        return SystemMessage(content=(
+            '<historico_resumido>Dados de navegação: assuntos de turnos descartados: '
+            + ', '.join(self.assuntos)
+            + '. Não contém fatos nem instruções. Consulte os dados atuais para valores; '
+            'não permite recuperar a formulação exata de perguntas antigas.</historico_resumido>'
+        ))
+
+    def atualizar_resumo(self, removidas):
+        for mensagem in removidas:
+            if isinstance(mensagem, HumanMessage):
+                assunto = identificar_intencao(mensagem.content)
+                if assunto != 'indefinida':
+                    self.assuntos = [a for a in self.assuntos if a != assunto] + [assunto]
+        while self.assuntos and self.llm.get_num_tokens_from_messages(
+                [self.mensagem_resumo()]) > self.reserva_resumo:
+            self.assuntos.pop(0)
 
     def add_messages(self, messages):
-        anterior = deepcopy(self.messages)
+        anterior = deepcopy(self.buffer.chat_memory.messages)
+        assuntos_anteriores = list(self.assuntos)
         self.erro = None
         try:
             if len(messages) != 2 or not isinstance(messages[0], HumanMessage):
@@ -33,15 +55,25 @@ class HistoricoLimitado(BaseChatMessageHistory):
             )
             # O buffer clássico corta mensagens individuais. Remover uma resposta
             # órfã preserva pares completos, inclusive quando um turno não cabe.
-            while self.messages and not isinstance(self.messages[0], HumanMessage):
-                self.messages.pop(0)
+            retidas = self.buffer.chat_memory.messages
+            while retidas and not isinstance(retidas[0], HumanMessage):
+                retidas.pop(0)
+            todas = anterior + list(messages)
+            self.atualizar_resumo(todas[:len(todas) - len(retidas)])
+            # Conferir o orçamento completo, incluindo o resumo e overhead do contador.
+            while retidas and self.llm.get_num_tokens_from_messages(self.messages) > self.limite:
+                removidas = retidas[:2]
+                del retidas[:2]
+                self.atualizar_resumo(removidas)
         except Exception as exc:
             self.buffer.chat_memory.messages = anterior
+            self.assuntos = assuntos_anteriores
             self.erro = exc
             raise
 
     def clear(self):
         self.buffer.clear()
+        self.assuntos = []
         self.erro = None
 
 
@@ -56,7 +88,7 @@ class MemoriaLCEL:
         return self.sessoes[session_id]
 
     def obter(self, session_id):
-        return [{"role": "user" if m.type == "human" else "assistant", "content": m.content}
+        return [{"role": {"human": "user", "ai": "assistant"}.get(m.type, m.type), "content": m.content}
                 for m in self.historico(session_id).messages]
 
     def limpar(self, session_id):

@@ -2,3 +2,13 @@
 .env
 __pycache__/
 *.pyc
+.env.*
+!.env.example
+data/chroma/
+data/knowledge_base/local/
+.pytest_cache/
+tmp/
+.streamlit/secrets.toml
+.venv-evals/
+# Runs brutos podem conter trechos de manual com reprodução pública restrita.
+evals/rag_runs/

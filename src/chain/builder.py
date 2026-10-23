@@ -33,7 +33,7 @@ class ClienteLCEL:
         class OllamaContado(ChatOllama):
             def get_num_tokens_from_messages(self, messages, tools=None):
                 return contar_mensagens([
-                    {"role": "user" if m.type == "human" else "assistant", "content": m.content}
+                    {"role": {"human": "user", "ai": "assistant"}.get(m.type, m.type), "content": m.content}
                     for m in messages
                 ]) if messages else 0
 

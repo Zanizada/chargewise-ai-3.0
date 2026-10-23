@@ -26,7 +26,7 @@ def conferir_campos(resultado, esperado):
 def main():
     parser = argparse.ArgumentParser(description="Avaliação inicial do ChargeWise")
     parser.add_argument("--modo", choices=["demo", "manual", "lcel"], default="demo")
-    parser.add_argument("--prompt", choices=["v1", "v2"], default="v2")
+    parser.add_argument("--prompt", choices=["v1", "v2", "v4"], default="v4")
     parser.add_argument("--arquivo", type=Path)
     args = parser.parse_args()
     config = carregar_config(args.modo, args.prompt)
@@ -57,7 +57,7 @@ def main():
         except Exception:
             versoes[pacote] = None
     dados = {
-        "origem_base": "Criada agora; Sprint 2 não implementada pelo grupo.",
+        "origem_base": "Referência atual; não comprova a entrega histórica da Sprint 2.",
         "tipo_execucao": "demo_sem_ia" if args.modo == "demo" else "chamada_modelo",
         "data_utc": agora.isoformat(), "modo": args.modo,
         "modelo_solicitado": None if args.modo == "demo" else config.modelo,

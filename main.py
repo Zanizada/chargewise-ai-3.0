@@ -9,7 +9,7 @@ from src.contexto import carregar_contexto
 def main():
     parser = argparse.ArgumentParser(description="ChargeWise AI — base incremental")
     parser.add_argument("--modo", choices=["demo", "manual", "lcel"])
-    parser.add_argument("--prompt", choices=["v1", "v2"])
+    parser.add_argument("--prompt", choices=["v1", "v2", "v4"])
     parser.add_argument("--cenario", choices=["padrao", "sem_dados"], default="padrao")
     parser.add_argument("--pergunta", help="Executa uma pergunta e encerra")
     parser.add_argument("--json", action="store_true", help="Exibe a resposta estruturada")

@@ -37,7 +37,7 @@ class Chatbot:
     def __init__(self, config, cliente=None):
         self.config = config
         self.memoria = MemoriaSessoes(config.max_turnos)
-        self.prompt = (RAIZ / "prompts" / f"system_prompt_{config.prompt_versao}.md").read_text(encoding="utf-8")
+        self.prompt = (RAIZ / "Prompts" / f"system_prompt_{config.prompt_versao}.md").read_text(encoding="utf-8")
         if cliente is not None:
             self.cliente = cliente
         elif config.modo == "demo":

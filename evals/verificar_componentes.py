@@ -29,7 +29,8 @@ def servidor_simulado(status=200):
             corpo = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
             recebidas.append(corpo)
             resposta = ConsultaRecarga(intencao="consumo",status="respondido",
-                                       resposta="Resposta fixa do teste",energia_kwh=142)
+                                       resposta="Resposta fixa do teste",energia_kwh=142,
+                                       fontes=["consumo_mensal"])
             dados = {"model":"modelo-teste","done":True,"done_reason":"stop",
                      "message":{"role":"assistant","content":resposta.model_dump_json()},
                      "prompt_eval_count":30,"eval_count":10}
